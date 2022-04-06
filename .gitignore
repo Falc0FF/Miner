@@ -1,0 +1,4 @@
+venv-Miner/
+__pycache__/
+*.spec
+build/
