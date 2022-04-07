@@ -4,6 +4,7 @@ import time
 import tkinter as tk
 from tkinter import messagebox
 from random import randint
+from tkinter import font
 
 FILE_VERSION = '1.0.0'
 
@@ -48,7 +49,9 @@ class Application(tk.Tk):
                 self.buts[i][j].grid(row=i, column=j)
                 if i == self.row - 1 or j == self.col - 1:
                     self.buts[i][j]['state'] = 'disabled'
-                self.labs[i].append(tk.Label(text='0', width=2, height=1))
+                self.labs[i].append(tk.Label(
+                    text='0', width=2, height=1, font=font.nametofont(
+                        "TkDefaultFont").configure(weight=font.BOLD)))
 
     def left_click(self, i, j):
         """Press button."""
@@ -58,6 +61,7 @@ class Application(tk.Tk):
         self.buts[i][j]['text'] = ' '
         self.buts[i][j].grid_remove()
         self.labs[i][j].grid(row=i, column=j)
+        print(self.buts[i][j].cget('font'))
         if self.labs[i][j]['text'] == 'X':
             self.labs[i][j]['bg'] = 'red'
             messagebox.showerror('Конец', 'Вы взорвались')
@@ -73,11 +77,14 @@ class Application(tk.Tk):
         """Mark bomb."""
         if event.widget.cget('text') != '@':
             event.widget['text'] = '@'
+            event.widget['bg'] = 'yellow'
             event.widget['state'] = 'disabled'
             self.bombs -= 1
             self.title(f'Miner, {self.bombs}, {self.clears}')
         elif event.widget.cget('text') == '@':
             event.widget['text'] = ''
+            event.widget.configure(fg='SystemButtonText')
+            event.widget.configure(bg='SystemButtonFace')
             event.widget['state'] = 'active'
             self.bombs += 1
             self.title(f'Miner, {self.bombs}, {self.clears}')
@@ -118,6 +125,22 @@ class Application(tk.Tk):
             for j in range(self.col-1):
                 if self.labs[i][j]['text'] == '0':
                     self.labs[i][j]['text'] = str(minirun(i, j))
+                    if self.labs[i][j]['text'] == '1':
+                        self.labs[i][j]['fg'] = 'blue'
+                    elif self.labs[i][j]['text'] == '2':
+                        self.labs[i][j]['fg'] = 'green'
+                    elif self.labs[i][j]['text'] == '3':
+                        self.labs[i][j]['fg'] = 'red'
+                    elif self.labs[i][j]['text'] == '4':
+                        self.labs[i][j]['fg'] = 'navy'
+                    elif self.labs[i][j]['text'] == '5':
+                        self.labs[i][j]['fg'] = 'maroon'
+                    elif self.labs[i][j]['text'] == '6':
+                        self.labs[i][j]['fg'] = 'cyan'
+                    elif self.labs[i][j]['text'] == '7':
+                        self.labs[i][j]['fg'] = 'black'
+                    elif self.labs[i][j]['text'] == '8':
+                        self.labs[i][j]['fg'] = 'white'
 
     def start(self):
         """Start."""
