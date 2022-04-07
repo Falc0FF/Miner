@@ -1,5 +1,6 @@
 """Miner."""
 
+import time
 import tkinter as tk
 from tkinter import messagebox
 from random import randint
@@ -62,7 +63,10 @@ class Application(tk.Tk):
             messagebox.showerror('Конец', 'Вы взорвались')
             exit()
         if self.clears == 0:
-            messagebox.showinfo('Конец', 'Вы победили')
+            self.time = time.time() - self.time
+            messagebox.showinfo(
+                'Вы победили',
+                f'Ваше время: {int(self.time//60)}м {int(self.time%60)}с')
             exit()
 
     def right_click(self, event):
@@ -135,6 +139,7 @@ class Application(tk.Tk):
                     self.left_click(i, j)
         if messagebox.askokcancel('Начало', 'Стартуем?'):
             # Раскрываем пустые поля
+            self.time = time.time()
             for i in range(self.row-1):
                 for j in range(self.col-1):
                     if self.labs[i][j]['text'] == '0':
