@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import messagebox
 from random import randint
 
-FILE_VERSION = '0.0.1'
+FILE_VERSION = '1.0.0'
 
 
 class Application(tk.Tk):
