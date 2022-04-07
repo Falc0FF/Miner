@@ -6,7 +6,7 @@ from tkinter import messagebox
 from random import randint
 from tkinter import font
 
-FILE_VERSION = '1.0.0'
+FILE_VERSION = '1.0.1'
 
 
 class Application(tk.Tk):
@@ -34,6 +34,7 @@ class Application(tk.Tk):
         self.row = 11  # Строки
         self.bombs = 25  # Бомбы
         self.clears = (self.row - 1) * (self.col - 1) - self.bombs
+        self.bomb_img = tk.PhotoImage(file=r'files\bomb.gif')
 
     def set_ui(self):
         """Create widgets."""
@@ -42,7 +43,7 @@ class Application(tk.Tk):
             self.labs.append([])
             for j in range(self.col):
                 self.buts[i].append(tk.Button(
-                    self, text='', width=2, height=1,
+                    self, text='', width=2, height=1, image=self.bomb_img,
                     command=lambda i=i, j=j: self.left_click(i, j)))
                 self.buts[i][j].bind('<Button-2>', self.right_click)
                 self.buts[i][j].bind('<Button-3>', self.right_click)
